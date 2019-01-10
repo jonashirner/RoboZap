@@ -162,11 +162,11 @@ class RoboZap(object):
     def zap_write_to_json_file(self, base_url):
         """
 
-        Fetches all the results from zap.core.alerts() and writes to json file.
+        Fetches all the results for the provided base url from zap.core.alerts() and writes to json file.
 
         Examples:
 
-        | zap write to json  | scan_id |
+        | zap write to json file | base_url |
 
         """
         core = self.zap.core
@@ -246,7 +246,7 @@ class RoboZap(object):
         :param report_author: Name of the Author of the report
         Examples:
 
-        | zap export report | export_path | export_format |
+        | zap export report | export_path | export_format | report_title |  report_author
 
         """
 
@@ -269,11 +269,11 @@ class RoboZap(object):
 
     def zap_write_to_tiny(self, base_url, db_name, app_name):
         """
-        Fetches all the results from zap.core.alerts() and writes to json file.
+        Fetches all the results from zap.core.alerts() for a provided base url and writes them to tiny db.
 
         Examples:
 
-        | zap write to json  | scan_id |
+        | zap write to tiny  | base_url |   db_name |   app_name
 
         """
         # xml_report = self.zap.core.xmlreport()
