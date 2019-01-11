@@ -2,8 +2,6 @@ RoboZap
 =======
 Documentation for test library ``RoboZap``.
 
-Please refer to the sample Zap Test in ``TestfireZap.robot`` that uses the RoboZap library and Selenium Library with it to perform "parameterized scanning"/authenticated scanning of the app. 
-
 Installing
 ----------
 - Please install all requirements in requirements.txt with `pip install requirements.txt`
@@ -102,6 +100,7 @@ Examples:
 
 `| zap start ascan  | context  | url |`
 
+
 Zap Start Spider
 ----------------
 Arguments:  [target, url]
@@ -112,6 +111,16 @@ Examples:
 
 `| zap start spider  | target  | url |`
 
+
+Zap Print Alerts
+----------------
+Fetches all the results from zap.core.alerts() and appends them to the test log.
+
+Examples:
+
+`| zap print alerts`
+
+
 Zap Write To Json File
 ----------------------
 Arguments:  [scan_id]
@@ -120,7 +129,7 @@ Fetches all the results from zap.core.alerts() and writes to json file.
 
 Examples:
 
-`| zap write to json  | scan_id |`
+`| zap write to json file  | scan_id |`
 
 
 Zap Generate Report  (Export Report Plugin)
