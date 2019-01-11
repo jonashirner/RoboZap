@@ -158,6 +158,48 @@ class RoboZap(object):
             logger.info('Scan running at {0}%'.format(int(self.zap.ascan.status(scan_id))))
             time.sleep(10)
 
+    def zap_print_alerts(self):
+        """
+
+        Fetches all the results from zap.core.alerts() and appends them to the test log.
+
+        Examples:
+
+        | zap print alerts
+
+        """
+        core = self.zap.core
+
+        for i,na in enumerate(core.alerts()):
+
+            vul = {}
+            vul['name'] = na['alert']
+            vul['confidence'] = na.get('confidence', '')
+            if na.get('risk') == 'High':
+                vul['severity'] = 3
+            elif na.get('risk') == 'Medium':
+                vul['severity'] = 2
+            elif na.get('risk') == 'Low':
+                vul['severity'] = 1
+            else:
+                vul['severity'] = 0
+
+            vul['uri'] = na.get('url', '')
+            vul['param'] = na.get('param', '')
+            vul['attack'] = na.get('attack', '')
+            vul['evidence'] = na.get('evidence', '')
+
+            message = core.message(message_id)
+
+            print(vul['name'])
+            print(" URL:        " + vul['uri'])
+            print(" Severity:   " + str(vul['severity']))
+            print(" Confidence: " + vul['confidence'])
+            print(" Parameter:  " + vul['param'])
+            print(" Attack:     " + vul['attack'])
+            print(" Evidence:   " + vul['evidence'])
+            print(message['requestHeader'])
+            print(" ")
 
     def zap_write_to_json_file(self, base_url):
         """
@@ -269,7 +311,7 @@ class RoboZap(object):
 
     def zap_write_to_tiny(self, base_url, db_name, app_name):
         """
-        Fetches all the results from zap.core.alerts() for a provided base url and writes them to tiny db.
+        Fetches all the results for the provided base url from zap.core.alerts() and writes them to tiny db.
 
         Examples:
 
@@ -315,15 +357,8 @@ class RoboZap(object):
             if vul:
                 db.insert(vul)
 
-
-
-
     def zap_shutdown(self):
         """
         Shutdown process for ZAP Scanner
         """
         self.zap.core.shutdown()
-
-
-
-
